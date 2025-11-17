@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Retro Lumen</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #111;
+            color: #f0f0f0;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 0.75rem;
+        }
+
+        header button {
+            appearance: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: inherit;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #command-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        #shader-stage {
+            position: relative;
+            background: #050505;
+            width: 90vw;
+            height: 90vh;
+            max-width: 100%;
+            max-height: 100%;
+            box-shadow: 0 0 24px rgba(0, 0, 0, 0.8);
+        }
+
+        #shader-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #000;
+        }
+
+        #cursor-layer {
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        body.pre-capture header {
+            border-color: transparent;
+            background: transparent;
+        }
+
+        body.pre-capture #command-bar {
+            position: fixed;
+            inset: 0;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05), transparent 60%);
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        body.pre-capture main {
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.8)),
+                url("./assets/pre-capture-bg.png") center/cover no-repeat;
+        }
+
+        body.pre-capture #shader-stage {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        body:not(.pre-capture) #shader-stage {
+            opacity: 1;
+            pointer-events: auto;
+            transition: opacity 120ms ease-out;
+        }
+
+        body.pre-capture header strong,
+        body.pre-capture #btn-stop-capture {
+            display: none;
+        }
+
+        body.pre-capture #btn-start-capture {
+            font-size: 1.4rem;
+            padding: 1rem 2.2rem;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+        }
+
+        textarea,
+        input,
+        select {
+            width: 100%;
+            padding: 0.4rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: inherit;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body class="pre-capture">
+    <header>
+        <strong>Retro Lumen</strong>
+        <div id="command-bar">
+            <button id="btn-start-capture">画面キャプチャ</button>
+            <button id="btn-stop-capture">停止</button>
+        </div>
+    </header>
+    <main>
+        <section id="shader-stage">
+            <canvas id="shader-canvas"></canvas>
+            <div id="cursor-layer"></div>
+        </section>
+    </main>
+    <script type="module" src="./src/bootstrap.js"></script>
+</body>
+</html>
