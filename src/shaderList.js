@@ -45,8 +45,8 @@ void main() {
         ],
         params: [],
         fixedInfo: [
-            { label: "スキャンライン", value: "0.15" },
-            { label: "湾曲", value: "0.12" },
+            { label: "スキャンライン", value: "0.10" },
+            { label: "湾曲", value: "0.18" },
         ],
     },
     {
@@ -79,7 +79,7 @@ void main() {
         ],
         params: [],
         fixedInfo: [
-            { label: "グロー", value: "0.5" },
+            { label: "グロー", value: "0.31" },
         ],
     },
 ];
